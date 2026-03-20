@@ -5,8 +5,12 @@ const aiRoutes = require("./routes/aiRoutes");
 
 const app = express();
 
-// Allow requests from React dev server
-app.use(cors({ origin: ["http://localhost:3000", "http://localhost:3001"] }));
+// Get frontend URL from env variable (Vercel)
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+
+// Allow requests from localhost AND your deployed frontend
+app.use(cors({ origin: [FRONTEND_URL, "http://localhost:3000", "http://localhost:3001"] }));
+
 app.use(express.json());
 
 // Health check
